@@ -1,0 +1,12 @@
+local/
+
+debian/files
+debian/*.debhelper.log
+debian/*.postinst.debhelper
+debian/*.postrm.debhelper
+debian/*.prerm.debhelper
+debian/*.substvars
+debian/*/
+
+*_*.changes
+*_*.deb

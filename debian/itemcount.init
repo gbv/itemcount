@@ -1,0 +1,82 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:          itemcount
+# Required-Start:    $local_fs $remote_fs $network
+# Required-Stop:     $local_fs $remote_fs $network
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: itemcount web application
+# Description:       Start and stop itemcount web application.
+### END INIT INFO
+
+PACKAGE=itemcount
+PIDFILE=/var/run/$PACKAGE.pid
+CARTON=/usr/local/bin/carton
+PORT=6023
+
+start () {
+    [ -x $CARTON ] || exit 5
+    cd /srv/$PACKAGE
+    echo -n "Starting $0: "
+    carton exec starman --pid $PIDFILE --daemonize \
+        --workers 5 --port $PORT --user $PACKAGE \
+        --error-log /var/log/$PACKAGE/error.log \
+        --access-log /var/log/$PACKAGE/access.log \
+        /srv/itemcount/bin/app.psgi
+    retval=$?
+    if [ $retval -eq 0 ]; then
+        echo "done"
+        exit
+    else
+        echo "failed"
+        exit $?
+    fi
+}
+
+stop () {
+    echo -n "Stopping $0: "
+    if [ -f $PIDFILE ]; then
+        kill `cat $PIDFILE` 2>&1 > /dev/null
+        retval=$?
+        [ $retval -eq 0 ] && rm -f $PIDFILE
+        echo "done"
+        exit
+    echo
+        exit $retval
+    fi
+    echo "pid $PIDFILE not found"
+    echo
+    exit 1
+}
+
+status () {
+  if [ -f $PIDFILE ]; then
+    kill -0 `cat $PIDFILE` &> /dev/null
+    retval=$?
+    if [ $retval -eq 0 ]; then
+      echo "$0 is running"
+      exit 0
+    else
+      echo "$0 is not running, but pidfile $PIDFILE exists"
+      exit 1
+    fi
+  else
+    echo "$0 is not running"
+    exit 1
+  fi
+}
+
+case "$1" in
+    start|stop|status)
+        $1
+    ;;
+    restart)
+        start
+        stop
+    ;;
+    *)
+        echo "Usage: $0 {start|stop|restart|status}" >&2
+        exit 2
+    ;;
+esac

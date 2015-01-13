@@ -1,0 +1,4 @@
+cpanfile            srv/itemcount
+cpanfile.snapshot   srv/itemcount
+bin/*               srv/itemcount/bin
+local/*             srv/itemcount/local

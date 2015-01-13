@@ -1,0 +1,12 @@
+Source: itemcount
+Section: misc
+Priority: extra
+Maintainer: Jakob Voss <jakob.voss@gbv.de>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.2
+ 
+Package: itemcount
+Architecture: any
+Depends: perl-modules (>= 5.10.1), cpanminus, starman
+Recommends: carton
+Description: itemcount
