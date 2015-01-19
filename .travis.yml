@@ -13,6 +13,5 @@ script:
     - make debian-package
     - sudo dpkg -i itemcount_*.deb
     - sudo service itemcount status
-    - sudo apt-get install curl
     - carton exec prove -Ilib --verbose 
 cache: apt

@@ -10,7 +10,7 @@
 # Description:       Start and stop itemcount web application.
 ### END INIT INFO
 
-PACKAGE="$DPKG_MAINTSCRIPT_PACKAGE"
+PACKAGE=itemcount
 PIDFILE=/var/run/$PACKAGE.pid
 CARTON=/usr/local/bin/carton
 
@@ -19,7 +19,7 @@ start () {
     cd /srv/$PACKAGE
     echo -n "Starting $0: "
     carton exec starman --pid $PIDFILE --daemonize \
-        --workers 5 --port $PORT --user $PACKAGE \
+        --workers $WORKERS --port $PORT --user $PACKAGE \
         --error-log /var/log/$PACKAGE/error.log \
         --access-log /var/log/$PACKAGE/access.log \
         /srv/$PACKAGE/bin/app.psgi
