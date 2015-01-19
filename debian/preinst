@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-PACKAGE=itemcount
+PACKAGE="$DPKG_MAINTSCRIPT_PACKAGE"
 
 case "$1" in
     install)

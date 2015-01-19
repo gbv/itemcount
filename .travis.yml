@@ -14,6 +14,5 @@ script:
     - sudo dpkg -i itemcount_*.deb
     - sudo service itemcount status
     - sudo apt-get install curl
-    - curl -I http://127.0.0.1:6023
-    - carton exec prove --verbose 
+    - carton exec prove -Ilib --verbose 
 cache: apt

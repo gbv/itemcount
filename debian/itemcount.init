@@ -10,10 +10,9 @@
 # Description:       Start and stop itemcount web application.
 ### END INIT INFO
 
-PACKAGE=itemcount
+PACKAGE="$DPKG_MAINTSCRIPT_PACKAGE"
 PIDFILE=/var/run/$PACKAGE.pid
 CARTON=/usr/local/bin/carton
-PORT=6023
 
 start () {
     [ -x $CARTON ] || exit 5
@@ -23,7 +22,7 @@ start () {
         --workers 5 --port $PORT --user $PACKAGE \
         --error-log /var/log/$PACKAGE/error.log \
         --access-log /var/log/$PACKAGE/access.log \
-        /srv/itemcount/bin/app.psgi
+        /srv/$PACKAGE/bin/app.psgi
     retval=$?
     if [ $retval -eq 0 ]; then
         echo "done"
