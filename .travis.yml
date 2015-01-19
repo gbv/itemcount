@@ -1,0 +1,19 @@
+language: perl
+perl:
+    - 5.14
+before_install:
+    - sudo apt-get update -qq
+    - sudo apt-get autoremove
+    - sudo apt-get install fakeroot dpkg-dev
+    - sudo apt-get install cpanminus starman
+install:
+    - sudo cpanm Carton
+    - carton install --deployment
+script:
+    - make debian-package
+    - sudo dpkg -i itemcount_*.deb
+    - sudo service itemcount status
+    - sudo apt-get install curl
+    - curl -I http://127.0.0.1:6023
+    - carton exec prove --verbose 
+cache: apt
