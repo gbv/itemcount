@@ -10,14 +10,18 @@
 # Description:       Start and stop itemcount web application.
 ### END INIT INFO
 
-PACKAGE=itemcount
+PACKAGE=`basename $0`
 PIDFILE=/var/run/$PACKAGE.pid
-CARTON=/usr/local/bin/carton
+
+[ -f /etc/default/$PACKAGE ] && . /etc/default/$PACKAGE
 
 start () {
-    [ -x $CARTON ] || exit 5
-    cd /srv/$PACKAGE
     echo -n "Starting $0: "
+    if [ -z "$PORT" -o -z "$WORKERS" ]; then
+        echo "missing configuration PORT and/or WORKERS"
+        exit 5
+    fi
+    cd /srv/$PACKAGE
     carton exec starman --pid $PIDFILE --daemonize \
         --workers $WORKERS --port $PORT --user $PACKAGE \
         --error-log /var/log/$PACKAGE/error.log \
