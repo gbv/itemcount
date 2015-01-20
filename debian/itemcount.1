@@ -1,0 +1,26 @@
+.TH "ITEMCOUNT" "1" "" "Manual" ""
+.SH NAME
+.PP
+itemcount \- GBV PICA+ item counter
+.SH SYNOPSIS
+.PP
+The application is automatically started as service, listening on port
+6023.
+.IP
+.nf
+\f[C]
+sudo\ service\ itemcount\ {status|start|stop|restart}
+\f[]
+.fi
+.SH INSTALLATION
+.PP
+The application is packaged as Debian package and installed at
+\f[C]/srv/itemcount/\f[].
+Log files are located at \f[C]/var/log/itemcount/\f[].
+.SH CONFIGURATION
+.PP
+See \f[C]/etc/default/itemcount\f[].
+Restart is needed after changes.
+.SH SEE ALSO
+.IP \[bu] 2
+Source code at <https://github.com/gbv/itemcount>
