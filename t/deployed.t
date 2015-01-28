@@ -3,7 +3,7 @@ use Test::More;
 use HTTP::Tiny;
 
 # only test on ci server
-plan skip_all => 1 unless $ENV{CI};
+plan skip_all => 1 unless $ENV{CI} and $ENV{TEST_URL} eq 'deploy';
 
 # read default configuration
 my $config = "/etc/default/itemcount";

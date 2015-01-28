@@ -10,8 +10,8 @@ ARCH   :=$(shell dpkg --print-architecture)
 RELEASE:=${PACKAGE}_${VERSION}_${ARCH}.deb
 
 info:
-	@echo "Depends: $(DEPENDS)"
 	@echo "Release: $(RELEASE)"
+	@echo "Depends: $(DEPENDS)"
 
 # install local Perl modules
 local:
